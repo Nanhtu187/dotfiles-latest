@@ -1,0 +1,6 @@
+# Global clangd configuration.
+# Adds the custom include dir that provides <bits/stdc++.h> (see include/bits/stdc++.h),
+# so competitive-programming sources resolve the standard library under clangd.
+CompileFlags:
+  Add:
+    - -I/Users/nanhtu/.config/clangd/include

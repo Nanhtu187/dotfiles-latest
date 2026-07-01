@@ -113,6 +113,11 @@ create_symlink ~/github/dotfiles-latest/kitty ~/.config/kitty
 create_symlink ~/github/dotfiles-latest/opencode ~/.config/opencode
 create_symlink ~/github/dotfiles-latest/skhd ~/.config/skhd
 create_symlink ~/github/dotfiles-latest/emacs ~/.config/emacs
+# Personal zsh files (alias.zsh, options.zsh) sourced by zshrc-personal.sh
+create_symlink ~/github/dotfiles-latest/zsh ~/.config/zsh
+# clangd config + custom <bits/stdc++.h> include dir (macOS reads both locations)
+create_symlink ~/github/dotfiles-latest/clangd ~/.config/clangd
+create_symlink ~/github/dotfiles-latest/clangd "$HOME/Library/Preferences/clangd"
 
 # # This is on the other repo where I keep my ssh config files
 # I commented this as I don't have access to this repo in all the hosts
