@@ -3,9 +3,7 @@
 # U+E000 is the custom Linkarzu Logo glyph in ./logo-font/LinkarzuLogo-Regular.ttf
 format = """
 $username\
-$hostname\
 $time\
-[\uE000 ](#ff9d00 bold)\
 $all\
 $directory
 $character

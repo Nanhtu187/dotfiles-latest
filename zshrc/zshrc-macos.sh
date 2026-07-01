@@ -19,51 +19,9 @@ if [ ! -f "$FA_TARGET_SCPT" ] || [ "$FA_SOURCE" -nt "$FA_TARGET_SCPT" ]; then
   echo "Compiled: $FA_TARGET_SCPT"
 fi
 
-# This below is to automate the process of creating the
-# com.linkarzu.autoPushGithub.plist file which will run every X seconds and
-# automaticaly push changes to some github repos
-#
-# Check if the com.linkarzu.autoPushGithub.plist file exists, create it if missing
-PLIST_PATH="$HOME/Library/LaunchAgents/com.linkarzu.autoPushGithub.plist"
-SCRIPT_PATH="$HOME/github/dotfiles-latest/scripts/macos/mac/400-autoPushGithub.sh"
-
-# NOTE: If you modify the StartInterval below, make sure to also change it in
-# the ~/github/dotfiles-latest/scripts/macos/mac/400-autoPushGithub.sh script
-if [ ! -f "$PLIST_PATH" ]; then
-  echo "Creating $PLIST_PATH..."
-  cat <<EOF >"$PLIST_PATH"
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>Label</key>
-    <string>com.linkarzu.autoPushGithub</string>
-    <key>ProgramArguments</key>
-    <array>
-        <string>$SCRIPT_PATH</string>
-    </array>
-    <key>StartInterval</key>
-    <integer>180</integer>
-    <key>StandardOutPath</key>
-    <string>/tmp/autoPushGithub.out</string>
-    <key>StandardErrorPath</key>
-    <string>/tmp/autoPushGithub.err</string>
-</dict>
-</plist>
-EOF
-  echo "Created $PLIST_PATH."
-fi
-
-# Check if the plist file is loaded, and load it if not
-# If you want to verify manually if running, run
-# launchctl list | grep -i autopush
-# First column (-) means the job is NOT currently running. Normal as our script runs every X seconds
-# Second Column (0) means the job ran successfully the last execution, other values mean error
-if ! launchctl list | grep -q "com.linkarzu.autoPushGithub"; then
-  echo "Loading $PLIST_PATH..."
-  launchctl load "$PLIST_PATH"
-  echo "$PLIST_PATH loaded."
-fi
+# NOTE (tu.na): the com.linkarzu.autoPushGithub auto-push agent config was
+# removed from this file. It pointed at repos that don't exist on this machine
+# and fired a "Git Pull Error" notification every 3 minutes.
 
 # Automate tmux session cleanup every X hours using a LaunchAgent
 # This will create plist file to run the script every X hours
@@ -267,7 +225,7 @@ export PATH="$PATH:/Users/linkarzu/.lmstudio/bin"
 # will run the last config, thanks to @dulajdisanayaka for bringing it up in my video:
 # "Is Neovide just for Visual Effects? | Open LazyGit files, Disable Plugins, TMUX and more"
 # https://youtu.be/rNYtfA4zlO4
-alias v='NVIM_APPNAME=neobean nvim'
+alias v='NVIM_APPNAME=lazyvim nvim'
 alias vq='NVIM_APPNAME=quarto-nvim-kickstarter nvim'
 alias vk='NVIM_APPNAME=kickstart.nvim nvim'
 alias vl='NVIM_APPNAME=lazyvim nvim'

@@ -32,3 +32,8 @@ if [ "$OS" = 'Mac' ]; then
 elif [ "$OS" = 'Linux' ]; then
   source ~/github/dotfiles-latest/zshrc/zshrc-linux.sh
 fi
+
+# ---- zsh-syntax-highlighting (MUST be sourced last) ----
+if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
