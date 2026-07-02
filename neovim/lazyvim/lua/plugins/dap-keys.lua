@@ -1,7 +1,10 @@
 -- Short debugger keys, layered on top of LazyVim's dap.core extra.
---   <F5> / <leader>od   start / continue the debugger (same action)
---   <leader>dw          add the variable under the cursor to the watch window
--- (LazyVim already provides <leader>db breakpoint, <leader>du UI, stepping, etc.)
+-- VS Code-style function keys:
+--   <F5> / <leader>od   start / continue        <S-F5>    stop / terminate
+--   <F9>   toggle breakpoint                    <C-S-F5>  restart
+--   <F10>  step over    <F11> step into         <S-F11>   step out
+--   <leader>dW          add variable under cursor to watch
+-- (F6 stays "build"; pause is <leader>dP; <leader>dw keeps LazyVim's Widgets.)
 
 -- Project root of the current buffer, so the debuggee runs there and resolves
 -- relative file paths (e.g. competitive-programming .inp/.out files) against it.
@@ -78,8 +81,17 @@ return {
   keys = {
     { "<F5>", start_debug, desc = "Debug: Start/Continue" },
     { "<leader>od", start_debug, desc = "Debug: Start/Continue" },
+    -- VS Code-style debug function keys
+    { "<F9>", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle Breakpoint" },
+    { "<F10>", function() require("dap").step_over() end, desc = "Debug: Step Over" },
+    { "<F11>", function() require("dap").step_into() end, desc = "Debug: Step Into" },
+    { "<S-F11>", function() require("dap").step_out() end, desc = "Debug: Step Out" },
+    { "<S-F5>", function() require("dap").terminate() end, desc = "Debug: Stop" },
+    { "<C-S-F5>", function() require("dap").restart() end, desc = "Debug: Restart" },
+    -- Run to cursor (VS Code "Run to Cursor"); <leader>dC also does this.
+    { "<C-F10>", function() require("dap").run_to_cursor() end, desc = "Debug: Run to Cursor" },
     {
-      "<leader>dw",
+      "<leader>dW",
       function()
         require("dapui").elements.watches.add(vim.fn.expand("<cexpr>"))
       end,
