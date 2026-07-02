@@ -1,9 +1,9 @@
 -- Short debugger keys, layered on top of LazyVim's dap.core extra.
--- VS Code-style function keys:
---   <F5> / <leader>od   start / continue        <S-F5>    stop / terminate
---   <F9>   toggle breakpoint                    <C-S-F5>  restart
---   <F10>  step over    <F11> step into         <S-F11>   step out
---   <leader>dW          add variable under cursor to watch
+-- All PLAIN function keys — modified F-keys (Ctrl/Shift) don't survive some
+-- terminal/tmux setups, so everything frequent gets an unmodified key:
+--   <F5> start/continue   <F7> stop         <F8>  run to cursor
+--   <F9> breakpoint       <F10> step over   <F11> step into   <F12> step out
+--   <leader>od start/continue   <leader>dR restart   <leader>dW add to watch
 -- (F6 stays "build"; pause is <leader>dP; <leader>dw keeps LazyVim's Widgets.)
 
 -- Project root of the current buffer, so the debuggee runs there and resolves
@@ -82,14 +82,14 @@ return {
     { "<F5>", start_debug, desc = "Debug: Start/Continue" },
     { "<leader>od", start_debug, desc = "Debug: Start/Continue" },
     -- VS Code-style debug function keys
+    { "<F7>", function() require("dap").terminate() end, desc = "Debug: Stop" },
+    { "<F8>", function() require("dap").run_to_cursor() end, desc = "Debug: Run to Cursor" },
     { "<F9>", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle Breakpoint" },
     { "<F10>", function() require("dap").step_over() end, desc = "Debug: Step Over" },
     { "<F11>", function() require("dap").step_into() end, desc = "Debug: Step Into" },
-    { "<S-F11>", function() require("dap").step_out() end, desc = "Debug: Step Out" },
-    { "<S-F5>", function() require("dap").terminate() end, desc = "Debug: Stop" },
-    { "<C-S-F5>", function() require("dap").restart() end, desc = "Debug: Restart" },
-    -- Run to cursor (VS Code "Run to Cursor"); <leader>dC also does this.
-    { "<C-F10>", function() require("dap").run_to_cursor() end, desc = "Debug: Run to Cursor" },
+    { "<F12>", function() require("dap").step_out() end, desc = "Debug: Step Out" },
+    -- restart uses a leader key (no plain F-key left; F6 is build)
+    { "<leader>dR", function() require("dap").restart() end, desc = "Debug: Restart" },
     {
       "<leader>dW",
       function()
