@@ -2,6 +2,15 @@
 # Personal zsh config (committed). Sourced from ~/.zshrc_local/env-setup.sh,
 # which the framework loads (zshrc-macos.sh). Secrets stay in that local stub.
 
+# ---- Oh My Zsh + Powerlevel10k prompt (replaces starship) ----
+# Starship init in zshrc-macos.sh is disabled; p10k provides the prompt.
+# Run `p10k configure` once to generate ~/.p10k.zsh (interactive wizard).
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git)
+source "$ZSH/oh-my-zsh.sh"
+# ~/.p10k.zsh is sourced at the end of zshrc-file.sh (added by `p10k configure`)
+
 # ---- personal environment (go/nvm/sdkman/conda/android/ssh/tokens/PATH) ----
 [[ -s "/Users/nanhtu/.gvm/scripts/gvm" ]] && source "/Users/nanhtu/.gvm/scripts/gvm"
 export GOPRIVATE="git.teko.vn,go.tekoapis.com,rpc.tekoapis.com"
@@ -56,8 +65,6 @@ export PATH="/Users/nanhtu/.local/bin:$PATH"
 # loads, and (b) syntax-highlighting must be sourced last (after autosuggestions).
 autoload -Uz add-zsh-hook
 _my_late_init() {
-  # Use the catppuccin-powerline preset instead of linkarzu's active-config.toml
-  export STARSHIP_CONFIG="$HOME/.config/starship.toml"
   # zsh-syntax-highlighting must load last
   local shl="$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   [ -f "$shl" ] && source "$shl"

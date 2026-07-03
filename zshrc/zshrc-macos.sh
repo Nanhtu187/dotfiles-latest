@@ -362,13 +362,14 @@ fi
 # # starship_zle-keymap-select-wrapped:1: maximum nested function level reached; increase FUNCNEST?
 # # Check that the function `starship_zle-keymap-select()` is defined
 # # https://github.com/starship/starship/issues/3418
-if command -v starship &>/dev/null; then
-  type starship_zle-keymap-select >/dev/null ||
-    {
-      export STARSHIP_CONFIG=$HOME/github/dotfiles-latest/starship-config/active-config.toml
-      eval "$(starship init zsh)" >/dev/null 2>&1
-    }
-fi
+# Starship disabled — using Oh My Zsh + Powerlevel10k instead (see zshrc-personal.sh)
+# if command -v starship &>/dev/null; then
+#   type starship_zle-keymap-select >/dev/null ||
+#     {
+#       export STARSHIP_CONFIG=$HOME/github/dotfiles-latest/starship-config/active-config.toml
+#       eval "$(starship init zsh)" >/dev/null 2>&1
+#     }
+# fi
 
 # eza
 # ls replacement
