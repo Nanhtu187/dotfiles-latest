@@ -30,8 +30,9 @@ export PATH=$PATH:$(go env GOPATH)/bin
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-ssh-add ~/.ssh/tu.na
-ssh-add ~/.ssh/nanhtu
+# Add SSH keys quietly. ssh-add prints "Identity added" to stderr on every init,
+# which trips Powerlevel10k instant prompt's no-console-output requirement.
+ssh-add ~/.ssh/tu.na ~/.ssh/nanhtu >/dev/null 2>&1
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH=$PATH:/Users/nanhtu/.local/bin
