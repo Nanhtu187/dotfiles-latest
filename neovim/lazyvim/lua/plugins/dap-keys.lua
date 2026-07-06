@@ -2,8 +2,10 @@
 -- All PLAIN function keys — modified F-keys (Ctrl/Shift) don't survive some
 -- terminal/tmux setups, so everything frequent gets an unmodified key:
 --   <F5> start/continue   <F7> stop         <F8>  run to cursor
---   <F9> breakpoint       <F10> step over   <F11> step into   <F12> step out
---   <leader>od start/continue   <leader>dR restart   <leader>dW add to watch
+--   <F9> breakpoint       <F10> step over   <F12> step into
+--   <leader>do step out (LazyVim)   <leader>od start/continue
+--   <leader>dR restart   <leader>dW add to watch
+-- F11 is avoided — macOS uses it for "Show Desktop", so it never reaches nvim.
 -- (F6 stays "build"; pause is <leader>dP; <leader>dw keeps LazyVim's Widgets.)
 
 -- Project root of the current buffer, so the debuggee runs there and resolves
@@ -86,8 +88,8 @@ return {
     { "<F8>", function() require("dap").run_to_cursor() end, desc = "Debug: Run to Cursor" },
     { "<F9>", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle Breakpoint" },
     { "<F10>", function() require("dap").step_over() end, desc = "Debug: Step Over" },
-    { "<F11>", function() require("dap").step_into() end, desc = "Debug: Step Into" },
-    { "<F12>", function() require("dap").step_out() end, desc = "Debug: Step Out" },
+    { "<F12>", function() require("dap").step_into() end, desc = "Debug: Step Into" },
+    -- F11 avoided (macOS "Show Desktop"); step out stays on LazyVim's <leader>do
     -- restart uses a leader key (no plain F-key left; F6 is build)
     { "<leader>dR", function() require("dap").restart() end, desc = "Debug: Restart" },
     {
